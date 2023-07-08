@@ -10,18 +10,24 @@ class MongodbVersionController implements IVersionController<number> {
   versionFieldName: string;
   collection: Collection | null = null;
 
-  constructor(options: {
+  constructor({
+    uri,
+    dbName,
+    collectionName,
+    assetIdFieldName,
+    versionFieldName,
+  }: {
     uri: string;
     dbName: string;
     collectionName: string;
     assetIdFieldName?: string;
     versionFieldName?: string;
   }) {
-    this.uri = options.uri;
-    this.dbName = options.dbName;
-    this.collectionName = options.collectionName;
-    this.assetIdFieldName = options.assetIdFieldName || "_id";
-    this.versionFieldName = options.versionFieldName || "version";
+    this.uri = uri;
+    this.dbName = dbName;
+    this.collectionName = collectionName;
+    this.assetIdFieldName = assetIdFieldName || "_id";
+    this.versionFieldName = versionFieldName || "version";
   }
 
   async createIndex() {

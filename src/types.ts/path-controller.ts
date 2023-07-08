@@ -1,18 +1,19 @@
 // src/types/path-controller.ts
-export type GetRemoteRelPath<T> = (assetId: string, version: T) => string;
-export type GetLocalRelPath<T> = (assetId: string, version: T) => string;
-export type ResolveRemoteRelPath<T> = (path: string) => {
+export type GetRemotePath<T> = (assetId: string, version: T) => string;
+export type GetLocalPath<T> = (assetId: string, version: T) => string;
+export type ResolveRemotePath<T> = (path: string) => {
   assetId: string;
   version: T;
 };
-export type ResolveLocalRelPath<T> = (path: string) => {
+export type ResolveLocalPath<T> = (path: string) => {
   assetId: string;
   version: T;
 };
 
 export interface IPathController<T> {
-  getRemotePath: GetRemoteRelPath<T>;
-  getLocalPath: GetLocalRelPath<T>;
-  resolveRemoteRelPath?: ResolveRemoteRelPath<T>;
-  resolveLocalRelPath?: ResolveLocalRelPath<T>;
+  getRemotePath: GetRemotePath<T>;
+  getLocalPath: GetLocalPath<T>;
+  getTmpLocalPath: GetLocalPath<T>;
+  resolveRemotePath?: ResolveRemotePath<T>;
+  resolveLocalPath?: ResolveLocalPath<T>;
 }

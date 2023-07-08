@@ -5,6 +5,8 @@
   "author": "darwintree",
   "license": "MIT",
   "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/progress": "^2.0.5",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
@@ -16,6 +18,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "mongodb": "^5.7.0"
+    "axios": "^1.4.0",
+    "fs-extra": "^11.1.1",
+    "mongodb": "^5.7.0",
+    "progress": "^2.0.3",
+    "winston": "^3.9.0",
+    "p-limit": "3.1.0"
   }
 }

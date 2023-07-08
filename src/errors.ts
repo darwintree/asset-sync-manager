@@ -1,8 +1,11 @@
 // Base error
 class AssetSyncManagerError extends Error {
-  constructor(message?: string) {
+  public innerError?: Error;
+
+  constructor(message?: string, innerError?: Error) {
     super(message);
     this.name = this.constructor.name;
+    this.innerError = innerError;
     Error.captureStackTrace(this, this.constructor);
   }
 }
@@ -10,27 +13,34 @@ class AssetSyncManagerError extends Error {
 // Error types
 
 class VersionControllerError extends AssetSyncManagerError {
-  constructor(message?: string) {
-    super(message || "Version controller encountered an error");
-  }
-}
-
-class VersionControllerNotInit extends VersionControllerError {
-  constructor(message?: string) {
-    super(message || "Version controller not inited");
+  constructor(message?: string, innerError?: Error) {
+    super(message || "Version controller encountered an error", innerError);
   }
 }
 
 class PathControllerError extends AssetSyncManagerError {
-  constructor(message?: string) {
-    super(message || "Path controller encountered an error");
+  constructor(message?: string, innerError?: Error) {
+    super(message || "Path controller encountered an error", innerError);
   }
 }
 
 class SyncError extends AssetSyncManagerError {
-  constructor(message?: string) {
-    super(message || "Synchronization encountered an error");
+  constructor(message?: string, innerError?: Error) {
+    super(message || "Synchronization encountered an error", innerError);
   }
 }
 
-export { VersionControllerNotInit };
+class VersionControllerNotInit extends VersionControllerError {
+  constructor(message?: string, innerError?: Error) {
+    super(message || "Version controller not inited", innerError);
+  }
+}
+
+
+class DownloadError extends SyncError {
+  constructor(message?: string, innerError?: Error) {
+    super(message, innerError);
+  }
+}
+
+export { VersionControllerNotInit, DownloadError };

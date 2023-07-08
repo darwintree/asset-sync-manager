@@ -1,18 +1,21 @@
 import path from "path";
-import { GetRemoteRelPath, GetLocalRelPath } from "../../types.ts/path-controller";
+import { GetRemotePath, GetLocalPath } from "../../types.ts/path-controller";
 
 
-function constructDefaultGetRemotePath<T>(): GetRemoteRelPath<T> {
-  return (assetId: string, version: T) => assetId
+function constructDefaultGetRemotePath<T>(baseUrl: string): GetRemotePath<T> {
+  if (!baseUrl.endsWith("/")) {
+    baseUrl += "/";
+  }
+  return (assetId: string, version: T) => `${baseUrl}${assetId}`
 }
 
-function constructDefaultGetLocalRelPath<T>(assetsRelDir: string): GetLocalRelPath<T> {
+function constructDefaultGetLocalPath<T>(assetDir: string): GetLocalPath<T> {
   return (assetId: string, version: T) => {
-    return path.join(assetsRelDir, assetId);
+    return path.join(assetDir, assetId);
   };
 }
 
 export {
-  constructDefaultGetLocalRelPath,
+  constructDefaultGetLocalPath,
   constructDefaultGetRemotePath
 }
