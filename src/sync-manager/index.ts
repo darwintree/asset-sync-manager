@@ -9,9 +9,9 @@ import {
   Logger,
   AssetEntry,
   AssetIdFilter,
-} from "../types.ts";
+} from "../types/index.js";
 import { constructDefaultLogger } from "../logger";
-import { downloadAsset, shouldSyncAssetId } from "./utils";
+import { downloadAsset, shouldSyncAssetId } from "../utils.js";
 
 export class SyncManager<T> {
   logger: Logger;

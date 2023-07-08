@@ -1,7 +1,7 @@
 import path from "path"
 import { exec } from "child_process";
 import { DownloadError } from "../errors";
-import { IIntegrityChecker } from "../types.ts/integrity-checker"
+import { IIntegrityChecker } from "../types/integrity-checker"
 
 export class FfmpegIntegrityChecker implements IIntegrityChecker {
   shouldCheckIntegrity(assetId: string): boolean {

@@ -1,5 +1,5 @@
 import path from "path";
-import { GetRemotePath, GetLocalPath } from "../../types.ts/path-controller";
+import { GetRemotePath, GetLocalPath } from "../types/path-controller";
 
 function constructDefaultGetRemotePath<T>(baseUrl: string): GetRemotePath<T> {
   if (!baseUrl.endsWith("/")) {

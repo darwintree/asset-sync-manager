@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import path from 'path'
 import axios from "axios"
-import { DownloadError } from '../errors'
-import { AssetIdFilter } from '../types.ts'
+import { DownloadError } from './errors'
+import { AssetIdFilter } from './types'
 
 async function downloadAsset(remotePath: string, localPath: string, downloadOptions: {
   connectTimeout?: number,

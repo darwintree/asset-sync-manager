@@ -1,6 +1,6 @@
 import { Collection, MongoClient } from "mongodb";
-import { IVersionController } from "../../types.ts/version-controller";
-import { VersionControllerNotInit } from "../../errors";
+import { IVersionController } from "../types/version-controller";
+import { VersionControllerNotInit } from "../errors";
 
 class MongodbVersionController implements IVersionController<number> {
   uri: string;

@@ -1,5 +1,5 @@
 import winston from "winston";
-import { Logger } from "./types.ts/logger";
+import { Logger } from "./types/logger";
 
 function constructDefaultLogger(
   logPath?: string,
