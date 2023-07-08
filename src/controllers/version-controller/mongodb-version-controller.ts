@@ -32,7 +32,8 @@ class MongodbVersionController implements IVersionController<number> {
 
   async createIndex() {
     if (this.collection === null) throw new VersionControllerNotInit();
-
+    // do not need to create index for _id
+    if (this.assetIdFieldName === "_id") return
     await this.collection.createIndex(
       { [this.assetIdFieldName]: -1 },
       { unique: true }

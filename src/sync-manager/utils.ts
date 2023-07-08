@@ -64,4 +64,8 @@ function shouldSyncAssetId(
   return true
 }
 
-export { downloadAsset, shouldSyncAssetId };
+function constructPrefixFilter(prefixes: string[]): AssetIdFilter {
+  return (assetId) => prefixes.some((prefix)=>assetId.startsWith(prefix))
+}
+
+export { downloadAsset, shouldSyncAssetId, constructPrefixFilter };
