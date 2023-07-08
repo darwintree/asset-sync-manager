@@ -1,0 +1,21 @@
+{
+  "name": "asset-sync-manager",
+  "version": "0.1.0",
+  "description": "Sync remote resource to local with version control",
+  "author": "darwintree",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "peerDependencies": {
+    "mongodb": "^5.6.0"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "mongodb": "^5.7.0"
+  }
+}
