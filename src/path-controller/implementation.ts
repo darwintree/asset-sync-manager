@@ -1,14 +1,14 @@
 import path from "path";
-import { GetRemotePath, GetLocalPath } from "../types/path-controller";
+import { GetPath } from "../types/path-controller";
 
-function constructDefaultGetRemotePath<T>(baseUrl: string): GetRemotePath<T> {
+function constructDefaultGetRemotePath<T>(baseUrl: string): GetPath<T> {
   if (!baseUrl.endsWith("/")) {
     baseUrl += "/";
   }
   return (assetId: string, version: T) => `${baseUrl}${assetId}`;
 }
 
-function constructDefaultGetLocalPath<T>(assetDir: string): GetLocalPath<T> {
+function constructDefaultGetLocalPath<T>(assetDir: string): GetPath<T> {
   return (assetId: string, version: T) => {
     return path.join(assetDir, assetId);
   };
@@ -16,7 +16,7 @@ function constructDefaultGetLocalPath<T>(assetDir: string): GetLocalPath<T> {
 
 function constructDefaultVersionedGetLocalPath<T>(
   assetDir: string
-): GetLocalPath<T> {
+): GetPath<T> {
   return (assetId: string, version: T) => {
     // 提取文件名和扩展名
     const ext = path.extname(assetId);
