@@ -19,9 +19,9 @@ export class SyncManager<T> {
   localTmpDir?: string;
 
   constructor(
-    private versionController: IVersionController<T>,
-    private pathController: IPathController<T>,
-    private integrityChecker?: IIntegrityChecker,
+    public versionController: IVersionController<T>,
+    public pathController: IPathController<T>,
+    public integrityChecker?: IIntegrityChecker,
     options?: {
       logger?: Logger;
     }
@@ -32,7 +32,7 @@ export class SyncManager<T> {
 
   createProgressBar(options: ProgressBar.ProgressBarOptions) {
     return new ProgressBar(
-      "  downloading [:bar] :rate/bps :percent :etas\n",
+      "  downloading [:bar] :rate/bps :percent :etas",
       options
     );
   }

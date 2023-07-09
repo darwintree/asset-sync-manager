@@ -50,12 +50,12 @@ function shouldSyncAssetId(
   } = {}
 ): boolean {
   // exclude filter only filters out those should not be included
-  if (assetIdExcludeFilters) {
+  if (assetIdExcludeFilters?.length) {
     if (assetIdExcludeFilters.some((filter) => filter(assetId))) {
       return false
     }
   }
-  if (assetIdIncludeFilters) {
+  if (assetIdIncludeFilters?.length) {
     if (assetIdIncludeFilters.some((filter) => filter(assetId))) {
       return true
     }
