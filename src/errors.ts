@@ -43,4 +43,4 @@ class DownloadError extends SyncError {
   }
 }
 
-export { VersionControllerNotInit, DownloadError };
+export { VersionControllerNotInit, DownloadError, AssetSyncManagerError };

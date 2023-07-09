@@ -12,6 +12,7 @@ import {
 } from "../types/index.js";
 import { constructDefaultLogger } from "../logger";
 import { downloadAsset, shouldSyncAssetId } from "../utils.js";
+import { AssetSyncManagerError } from "../errors";
 
 export class SyncManager<T> {
   logger: Logger;
@@ -63,10 +64,16 @@ export class SyncManager<T> {
 
       // remove legacy version
       if (removeLegacy) {
+        if (!this.versionController.getLocalVersion) {
+          // should not trigger because of check in syncAll
+          throw new AssetSyncManagerError(
+            "unexpected parameter error: cannot remove legacy version because versionController.getLocalVersion not implemented"
+          );
+        }
         const legacyVersion = await this.versionController.getLocalVersion(
           assetId
         );
-        if (legacyVersion) {
+        if (legacyVersion !== null) {
           const legacyPath = this.pathController.getLocalPath(
             assetId,
             legacyVersion
@@ -113,6 +120,11 @@ export class SyncManager<T> {
       };
     } = { concurrency: 16, removeLegacy: false }
   ) {
+    if (options.removeLegacy && !this.versionController.getLocalVersion) {
+      throw new AssetSyncManagerError(
+        "unexpected parameter error: cannot remove legacy version because versionController.getLocalVersion not implemented"
+      );
+    }
     let total = 0;
     // iterate and get total count
     for (const assetId in assetEntry) {
@@ -141,13 +153,15 @@ export class SyncManager<T> {
       syncPromises.push(
         limit(async () => {
           try {
-            await this.updateLocalAsset(assetId, remoteVersion, { removeLegacy: options.removeLegacy });
+            await this.updateLocalAsset(assetId, remoteVersion, {
+              removeLegacy: options.removeLegacy,
+            });
           } finally {
             progressBar.tick();
           }
         })
       );
     }
-    await Promise.all(syncPromises)
+    await Promise.all(syncPromises);
   }
 }
