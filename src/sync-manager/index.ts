@@ -126,15 +126,18 @@ export class SyncManager<T> {
       );
     }
     let total = 0;
+    this.logger.info("start counting files to sync, please wait for a while...")
     // iterate and get total count
+    const countPromise = []
     for (const assetId in assetEntry) {
       if (!shouldSyncAssetId(assetId, options.assetIdFilters)) continue;
-      if (
-        await this.versionController.shouldSync(assetId, assetEntry[assetId])
-      ) {
-        total += 1;
-      }
+      countPromise.push(
+        this.versionController.shouldSync(assetId, assetEntry[assetId]).then((shouldSync) => {
+          if (shouldSync) total += 1
+        })
+      );
     }
+    await Promise.all(countPromise)
     this.logger.info(`total: ${total}`);
     const progressBar = this.createProgressBar({
       total,
